@@ -87,13 +87,14 @@ func main() {
 		tpl.ExecuteTemplate(w, "result.html.tmpl", nil)
 	})
 
-	http.HandleFunc("/index.html", func(w http.ResponseWriter, r *http.Request) {
+	http.Handle("GET /{$}", http.RedirectHandler("/index.html", http.StatusPermanentRedirect))
+	http.HandleFunc("GET /index.html", func(w http.ResponseWriter, r *http.Request) {
 		tpl.ExecuteTemplate(w, "index.html.tmpl", conf)
 	})
 	static, err := fs.Sub(staticFiles, "static")
 	if err != nil {
 		log.Fatalf("sub static: %s", err)
 	}
-	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.FS(static))))
+	http.Handle("GET /static/", http.StripPrefix("/static/", http.FileServer(http.FS(static))))
 	http.ListenAndServe(":8080", nil)
 }
