@@ -1,0 +1,23 @@
+<html>
+
+<head>
+    <title>Wakeup!</title>
+    <link rel="stylesheet" href="/static/css/pico.min.css">
+    <script src="/static/js/htmx.min.js"></script>
+</head>
+
+<body>
+    <main class="container">
+        <h1>Wakeup!</h1>
+        <h4>Choose a device:</h4>
+        <div id="result"></div>
+        {{range .Devices}}
+            <fieldset>
+                <button hx-post="/wakeup/{{.ID}}" hx-target="#result">{{.Name}}</button>
+            </fieldset>
+            {{end}}
+        </div>
+    </main>
+</body>
+
+</html>
