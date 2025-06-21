@@ -8,5 +8,5 @@ RUN go build
 
 FROM alpine
 ENV PATH $PATH:/go/bin/
-COPY --from=builder /go/src/kokosync/woller /go/bin/woller
+COPY --from=builder /go/src/woller /go/bin/woller
 ENTRYPOINT ["woller"]
